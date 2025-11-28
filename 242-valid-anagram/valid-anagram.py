@@ -1,5 +1,8 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
+        '''
+        prev solution:
+
         if len(s) != len(t):
             return False
         hs = {}
@@ -14,3 +17,7 @@ class Solution:
             else:
                 return False
         return True
+        '''
+        sortS = sorted(s)
+        sortT = sorted(t)
+        return sortS == sortT
