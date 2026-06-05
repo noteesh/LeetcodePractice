@@ -1,7 +1,10 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        # {[aet, [eat, tea]]}
+
         hs = defaultdict(list)
-        for word in strs:
-            s = ''.join(sorted(word))
-            hs[s].append(word)
+
+        for n in strs:
+            hs[tuple(sorted(n))].append(n)
+        
         return list(hs.values())
