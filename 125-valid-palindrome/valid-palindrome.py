@@ -3,7 +3,6 @@ class Solution:
         left = 0
         right = len(s) - 1
 
-        s = s.lower()
         while left < right:
             if not s[left].isalnum():
                 left += 1
@@ -13,7 +12,7 @@ class Solution:
                 right -= 1
                 continue
             
-            if s[left] != s[right]:
+            if s[left].lower() != s[right].lower():
                 return False
             else:
                 left += 1
