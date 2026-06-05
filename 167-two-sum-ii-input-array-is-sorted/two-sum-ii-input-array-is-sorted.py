@@ -1,11 +1,19 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-
+        
+        left = 0
+        right = len(numbers) - 1
         hs = {}
 
-        for i, n in enumerate(numbers):
-            if target - n in hs:
-                return [hs[target - n] + 1, i + 1]
-            else:
-                hs[n] = i
+        cur = -1
+        while left < right:
+            cur = numbers[left] + numbers[right]
+            if cur == target:
+                return [left + 1, right + 1]
+            if cur < target:
+                left += 1
+            if cur > target:
+                right -= 1
+        return []
+            
         
