@@ -20,7 +20,6 @@ class Solution:
             if curHours <= h:
                 k = mid
                 right = mid - 1
-                print(100+left)
             elif curHours > h:
                 left = mid + 1
         return k
@@ -29,5 +28,4 @@ class Solution:
         h = 0
         for n in piles:
             h += (-(n // -k))
-        print(h)
         return h
