@@ -18,15 +18,11 @@ class Solution:
 
                     if matrix[mid][m] == target:
                         return True
-                    elif r == l:
-                        return False
                     elif matrix[mid][m] > target:
                         r = m - 1
                     else:
                         l = m + 1
 
-                return False
-            elif left == right:
                 return False
             elif matrix[mid][0] > target:
                 right = mid - 1
