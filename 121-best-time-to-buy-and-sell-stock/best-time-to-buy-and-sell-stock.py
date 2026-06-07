@@ -14,7 +14,6 @@ class Solution:
                     curMax = prices[p2] - prices[p1]
             
             p2 += 1
-            print(curMax)
         
         return curMax
             
