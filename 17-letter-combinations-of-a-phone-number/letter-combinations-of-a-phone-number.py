@@ -15,7 +15,7 @@ class Solution:
 
         def paths(start, path):
             if len(path) == len(digits):
-                ret.append("".join(path))
+                ret.append(path)
                 return
 
             for n in combinations[digits[start]]:
