@@ -7,6 +7,11 @@ class Solution:
         def dfs(node, time):
             if not hierarchy[node]:
                 return time
-            return max(dfs(n, time + informTime[node]) for n in hierarchy[node])
+            
+            best = 0
+            for n in hierarchy[node]:
+                a = dfs(n, time + informTime[node])
+                best = max(a, best)
+            return best
         
         return dfs(headID, 0)
