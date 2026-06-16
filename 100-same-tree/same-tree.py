@@ -18,12 +18,12 @@ class Solution:
             elif not qNode:
                 same = False
                 return
-
-            if pNode.val != qNode.val:
-                same = False
             
             left = isSimilar(pNode.left, qNode.left)
             right = isSimilar(pNode.right, qNode.right)
+
+            if pNode.val != qNode.val:
+                same = False
 
             
             return pNode, qNode
