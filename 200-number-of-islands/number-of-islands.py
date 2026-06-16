@@ -9,7 +9,7 @@ class Solution:
             queue.append((r, c))
             
             while queue:
-                dr, dc = queue.popleft()
+                dr, dc = queue.pop()
                 
                 if dr + 1 < rows and grid[dr + 1][dc] == '1' and (dr + 1, dc) not in seen:
                     seen.add((dr + 1, dc))
