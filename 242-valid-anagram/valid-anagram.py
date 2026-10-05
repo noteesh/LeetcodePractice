@@ -1,5 +1,20 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        ss = sorted(s)
-        ts = sorted(t)
-        return ss == ts
+        if len(s) != len(t):
+            return False
+
+        hs = {}
+
+        for i, n in enumerate(s):
+            if n in hs:
+                hs[n] += 1
+            else:
+                hs[n] = 1
+        
+        for i, n in enumerate(t):
+            if n not in hs or hs[n] <= 0:
+                return False
+            else:
+                hs[n] -= 1
+        
+        return True
