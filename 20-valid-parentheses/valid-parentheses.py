@@ -1,34 +1,24 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
 
-        for n in s:
-            if n == ')':
-                if len(stack) != 0:
-                    temp = stack.pop()
-                else:
-                    return False
-                if temp != '(':
+        st = []
+
+        for i, n in enumerate(s):
+            if n == '(' or n == '{' or n == '[':
+                st.append(n)
+            
+            elif n == ')':
+                if not st or st.pop() != '(':
                     return False
             elif n == '}':
-                if len(stack) != 0:
-                    temp = stack.pop()
-                else:
-                    return False
-                if temp != '{':
+                if not st or st.pop() != '{':
                     return False
             elif n == ']':
-                if len(stack) != 0:
-                    temp = stack.pop()
-                else:
+                if not st or st.pop() != '[':
                     return False
-                if temp != '[':
-                    return False
-            else:
-                stack.append(n)
         
-        if len(stack) == 0:
+        if not st:
             return True
         return False
-
+            
         
