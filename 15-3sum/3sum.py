@@ -1,23 +1,33 @@
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
-        sorted_list = sorted(nums)
+        s = sorted(nums)
         ret = []
 
-        target = 0
-        for i, n in enumerate(sorted_list):
-            if i > 0 and n == sorted_list[i - 1]:
+        for i, n in enumerate(s):
+            l = i + 1
+            r = len(nums) - 1
+            target = -1 * n
+
+            if i > 0 and s[i] == s[i - 1]:
                 continue
-            left = i + 1
-            right = len(nums) - 1
-            while left < right:
-                target = n + sorted_list[left] + sorted_list[right]
-                if target == 0:
-                    ret.append([n, sorted_list[left], sorted_list[right]])
-                    left += 1
-                    while left < right and sorted_list[left] == sorted_list[left - 1]:
-                        left += 1
-                elif target < 0:
-                    left += 1
-                else:
-                    right -= 1
+
+            while l < r:
+                if l == i:
+                    l += 1
+                elif r == i:
+                    r -= 1
+                
+                if s[l] + s[r] == target:
+                    ret.append([n, s[l], s[r]])
+                    l += 1
+                    r -= 1
+                    while l < r and s[l] == s[l - 1]:
+                        l += 1
+                    while l < r and s[r] == s[r + 1]:
+                        r -= 1
+                elif s[l] + s[r] > target:
+                    r -= 1
+                elif s[l] + s[r] < target:
+                    l += 1
+        
         return ret
