@@ -20,11 +20,8 @@ class Solution:
                 if s[l] + s[r] == target:
                     ret.append([n, s[l], s[r]])
                     l += 1
-                    r -= 1
                     while l < r and s[l] == s[l - 1]:
                         l += 1
-                    while l < r and s[r] == s[r + 1]:
-                        r -= 1
                 elif s[l] + s[r] > target:
                     r -= 1
                 elif s[l] + s[r] < target:
