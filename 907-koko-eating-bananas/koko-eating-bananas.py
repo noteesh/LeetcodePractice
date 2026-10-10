@@ -1,31 +1,30 @@
 class Solution:
-    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+    def minEatingSpeed(self, piles: list[int], h: int) -> int:
         piles.sort()
-
         if h == len(piles):
             return piles[-1]
-        elif h < len(piles):
-            return -1
+        
+        l = 1
+        r = piles[-1]
+        ret = -1
+        while l <= r:
+            m = (l + r) //2
 
-        k = 0
-        left = 1
-        right = piles[-1]
-        mid = 0
+            temp = self.eatingSpeed(piles, m)
 
-        while left <= right:
-            mid = (left + right) // 2
+            if temp <= h:
+                r = m - 1
+                ret = m
+            else:
+                l = m + 1
 
-            curHours = self.eatingSpeed(piles, mid)
+        return ret
 
-            if curHours <= h:
-                k = mid
-                right = mid - 1
-            elif curHours > h:
-                left = mid + 1
-        return k
-    
-    def eatingSpeed(self, piles: List[int], k: int) -> int:
+    def eatingSpeed(self, piles, k):
         h = 0
         for n in piles:
             h += (-(n // -k))
-        return h
+        return h        
+
+
+        
