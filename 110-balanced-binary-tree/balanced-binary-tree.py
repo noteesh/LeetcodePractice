@@ -5,22 +5,20 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        isBalanced = True
-        
-        def balanced(node):
+    def isBalanced(self, root: TreeNode | None) -> bool:
+        b = True
+
+        def height(node):
             if not node:
                 return 0
             
-            left = balanced(node.left)
-            right = balanced(node.right)
+            l = height(node.left)
+            r = height(node.right)
 
-            if abs(left - right) > 1:
-                nonlocal isBalanced
-                isBalanced = False
-            
-            return max(left, right) + 1
-
-        balanced(root)
-        return isBalanced
-            
+            if abs(l - r) > 1:
+                nonlocal b
+                b = False
+            return max(l, r) + 1
+        
+        height(root)
+        return b
