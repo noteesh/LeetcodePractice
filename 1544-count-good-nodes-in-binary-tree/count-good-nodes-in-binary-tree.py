@@ -6,25 +6,21 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        '''
-        1) if they are good
-        2) count of good nodes
-        3) if I am a good node or not
-        '''
-
         if not root:
             return 0
 
-        def good(node, maxSoFar):
-            if not node:
-                return 0
-            
-            left = good(node.left, max(maxSoFar, node.val))
-            right = good(node.right, max(maxSoFar, node.val))
+        numgood = 0
 
-            if node.val >= maxSoFar:
-                return 1 + left + right
+        def counting(r, maxSoFar):
+            if not r:
+                return
+            
+            left = counting(r.left, max(r.val, maxSoFar))
+            right = counting(r.right, max(r.val, maxSoFar))
+
+            if r.val >= maxSoFar:
+                nonlocal numgood
+                numgood += 1
         
-            return left + right
-        
-        return good(root, float('-inf'))
+        counting(root, float('-inf'))
+        return numgood
