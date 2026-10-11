@@ -5,28 +5,27 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+    def isSameTree(self, p: TreeNode | None, q: TreeNode | None) -> bool:
         same = True
 
-        def isSimilar(pNode, qNode):
+        def st(pn, qn):
+            if not pn and not qn:
+                return
             nonlocal same
-            if not pNode and not qNode:
-                return
-            elif not pNode:
+            if not pn:
                 same = False
                 return
-            elif not qNode:
+            if not qn:
                 same = False
                 return
             
-            left = isSimilar(pNode.left, qNode.left)
-            right = isSimilar(pNode.right, qNode.right)
+            st(pn.left, qn.left)
+            st(pn.right, qn.right) 
 
-            if pNode.val != qNode.val:
+            if pn.val != qn.val:
                 same = False
-
-            
-            return pNode, qNode
+                
+            return pn, qn
         
-        isSimilar(p, q)
+        st(p, q)
         return same
