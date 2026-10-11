@@ -5,17 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    def isValidBST(self, root: TreeNode | None) -> bool:
         if not root:
             return True
-        
-        def validate(node, minVal, maxVal):
-            if not node:
-                return True
 
-            if node.val <= minVal or node.val >= maxVal:
-                return False
+        def dfs(r, minv, maxv):
+            if not r:
+                return True
             
-            return validate(node.left, minVal, node.val) and validate(node.right, node.val, maxVal)
+            left = dfs(r.left, minv, r.val)
+            right = dfs(r.right, r.val, maxv)
+
+            if r.val <= minv or r.val >= maxv:
+                return False
+            return left and right
         
-        return validate(root, float('-inf'), float('inf'))
+        return dfs(root, float('-inf'), float('inf'))
+            
+        
