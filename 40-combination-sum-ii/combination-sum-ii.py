@@ -1,21 +1,16 @@
 class Solution:
-    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationSum2(self, candidates: list[int], target: int) -> list[list[int]]:
         ret = []
 
         candidates.sort()
 
         def paths(start, path):
-            nonlocal candidates
-            nonlocal target
-            nonlocal ret
-
-            sumSoFar = sum(path)
-
-            if sumSoFar == target:
+            tempSum = sum(path)
+            if tempSum == target:
                 ret.append(path[:])
             
-            targetLeft = target - sumSoFar
-            
+            targetLeft = target - tempSum
+
             for i in range(start, len(candidates)):
                 if i > start and candidates[i] == candidates[i - 1]:
                     continue
