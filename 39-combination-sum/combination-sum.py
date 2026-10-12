@@ -1,22 +1,19 @@
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
         ret = []
-        def paths(start, path):
-            nonlocal target
-            nonlocal ret
-            nonlocal candidates
 
-            sumSoFar = sum(path)
-            if sumSoFar == target:
+        def backtrack(start, path):
+            tempSum = sum(path)
+            if tempSum == target:
                 ret.append(path[:])
 
-            targetLeft = target - sumSoFar
-
+            targetLeft = target - tempSum
+            
             for i in range(start, len(candidates)):
                 if candidates[i] <= targetLeft:
                     path.append(candidates[i])
-                    paths(i, path)
+                    backtrack(i, path)
                     path.pop()
-            
-        paths(0, [])
+
+        backtrack(0, [])        
         return ret
