@@ -1,42 +1,41 @@
 class Solution:
-    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        rows, cols = len(grid), len(grid[0])
+    def maxAreaOfIsland(self, grid: list[list[int]]) -> int:
+        if not grid:
+            return 0
+        
         seen = set()
         maxArea = 0
+        rows, cols = len(grid), len(grid[0])
 
         def bfs(r, c):
-            queue = deque()
-            queue.append((r, c))
+            q = collections.deque()
             seen.add((r, c))
-            curArea = 1
+            q.append((r, c))
+            temp = 1
+
+            directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+            while q:
+                row, col = q.popleft()
+                for i, j in directions:
+                    r, c = row + i, col + j
+                    if r in range(rows) and c in range(cols) and grid[r][c] == 1 and (r, c) not in seen:
+                        q.append((r, c))
+                        seen.add((r, c))
+                        temp += 1
+                        
             nonlocal maxArea
+            if temp > maxArea:
+                maxArea = temp
+                
 
-            while queue:
-                row, col = queue.popleft()
-
-                if row - 1 >= 0 and grid[row - 1][col] == 1 and (row - 1, col) not in seen:
-                    seen.add((row - 1, col))
-                    queue.append((row - 1, col))
-                    curArea += 1
-                if col + 1 < cols and grid[row][col + 1] == 1 and (row, col + 1) not in seen:
-                    seen.add((row, col + 1))
-                    queue.append((row, col + 1))
-                    curArea += 1
-                if row + 1 < rows and grid[row + 1][col] == 1 and (row + 1, col) not in seen:
-                    seen.add((row + 1, col))
-                    queue.append((row + 1, col))
-                    curArea += 1
-                if col - 1 >= 0 and grid[row][col - 1] == 1 and (row, col - 1) not in seen:
-                    seen.add((row, col - 1))
-                    queue.append((row, col - 1))
-                    curArea += 1
-            
-            if curArea > maxArea:
-                maxArea = curArea
-
-        for i in range(rows):
-            for j in range(cols):
-                if grid[i][j] == 1 and (i, j) not in seen:
-                    bfs(i, j)
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1 and (r, c) not in seen:
+                    bfs(r, c)
         
         return maxArea
+
+
+
+
+        
