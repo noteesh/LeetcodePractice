@@ -1,30 +1,27 @@
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = defaultdict(list)
-        for course, pre in prerequisites:
-            graph[course].append(pre)
-
-        a = 0
-        b = 1
-        c = 2
-
-        path = [a] * numCourses
-
+    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:
+        hs = {}
+        for i in range(numCourses):
+            hs[i] = []
+        for i, j in prerequisites:
+            hs[i].append(j)
+        
+        completed = set()
         def dfs(crs):
-            if path[crs] == b:
+            if crs in completed:
                 return False
-            if path[crs] == c:
+            if len(hs[crs]) == 0:
                 return True
             
-            path[crs] = b
-            for n in graph[crs]:
+            completed.add(crs)
+            for n in hs[crs]:
                 if not dfs(n):
                     return False
-
-            path[crs] = c
+            completed.remove(crs)
+            hs[crs] = []
             return True
         
-        for i in range(numCourses):
-            if not dfs(i):
+        for crs in range(numCourses):
+            if not dfs(crs):
                 return False
         return True
