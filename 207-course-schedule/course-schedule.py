@@ -6,22 +6,25 @@ class Solution:
         for i, j in prerequisites:
             hs[i].append(j)
         
-        completed = set()
-        def dfs(crs):
-            if crs in completed:
-                return False
-            if len(hs[crs]) == 0:
+        seen = set()
+        def dfs(n):
+            if len(hs[n]) == 0:
                 return True
-            
-            completed.add(crs)
-            for n in hs[crs]:
-                if not dfs(n):
-                    return False
-            completed.remove(crs)
-            hs[crs] = []
-            return True
-        
-        for crs in range(numCourses):
-            if not dfs(crs):
+            if n in seen:
                 return False
+            
+            seen.add(n)
+            for m in hs[n]:
+                if not dfs(m):
+                    return False
+            seen.remove(n)
+            hs[n] = []
+            return True
+
+
+
+        for n in range(numCourses):
+            if not dfs(n):
+                return False
+
         return True
