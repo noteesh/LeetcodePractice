@@ -15,20 +15,14 @@ class Solution:
             seen.add((r, c))
             q.append((r, c))
 
+            directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
             while q:
                 row, col = q.popleft()
-                if (row + 1) in range(rows) and (col) in range(cols) and grid[row + 1][col] == '1' and (row + 1, col) not in seen:
-                    q.append((row + 1, col))
-                    seen.add((row + 1, col))
-                if (row - 1) in range(rows) and (col) in range(cols) and grid[row - 1][col] == '1' and (row - 1, col) not in seen:
-                    q.append((row - 1, col))
-                    seen.add((row - 1, col))
-                if (row) in range(rows) and (col + 1) in range(cols) and grid[row][col + 1] == '1' and (row, col + 1) not in seen:
-                    q.append((row, col + 1))
-                    seen.add((row, col + 1))
-                if (row) in range(rows) and (col - 1) in range(cols) and grid[row][col - 1] == '1' and (row, col - 1) not in seen:
-                    q.append((row, col - 1))
-                    seen.add((row, col - 1))
+                for i, j in directions:
+                    r, c = row + i, col + j
+                    if (r) in range(rows) and (c) in range(cols) and grid[r][c] == '1' and (r, c) not in seen:
+                        q.append((r, c))
+                        seen.add((r, c))
 
         for r in range(rows):
             for c in range(cols):
