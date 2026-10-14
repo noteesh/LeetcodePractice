@@ -7,12 +7,12 @@ class Solution:
         rows, cols = len(board), len(board[0])
 
         def bfs(r, c):
-            q = []
+            q = collections.deque()
             q.append((r, c))
             directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
 
             while q:
-                row, col = q.pop()
+                row, col = q.popleft()
                 for i, j in directions:
                     r, c = row + i, col + j
                     if r in range(rows) and c in range(cols) and board[r][c] == "O" and (r, c) not in seen:
