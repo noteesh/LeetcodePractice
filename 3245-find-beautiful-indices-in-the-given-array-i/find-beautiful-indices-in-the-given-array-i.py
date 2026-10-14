@@ -16,6 +16,5 @@ class Solution:
                     ans.append(i)
                     break
         
-        ans.sort()
         return ans
 
